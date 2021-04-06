@@ -50,7 +50,11 @@ class MenuAdapter: RecyclerView.Adapter<MenuAdapter.ViewHolder>() {
                 findViewById<TextView>(R.id.name).text = food.name
                 findViewById<TextView>(R.id.restaurant_name).text = food.restaurant
                 findViewById<TextView>(R.id.rating).text = food.rating.toString()
-                findViewById<ImageView>(R.id.photo).setImageResource(food.photo)
+                if(food.photo2 == null){
+                    findViewById<ImageView>(R.id.photo).setImageResource(food.photo)
+                }else{
+                    findViewById<ImageView>(R.id.photo).setImageBitmap(food.photo2)
+                }
                 if(food.favored)
                     findViewById<ImageView>(R.id.like).setImageResource(R.drawable.baseline_favorite_black_24dp)
                 else

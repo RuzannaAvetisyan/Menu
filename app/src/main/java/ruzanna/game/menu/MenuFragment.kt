@@ -1,5 +1,6 @@
 package ruzanna.game.menu
 
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -51,14 +52,16 @@ class MenuFragment: Fragment() {
         adapter.notifyDataSetChanged()
     }
 
+    fun updateListViewPhoto(bitmap: Bitmap){
+        foodList[foodList.size - 1].photo2 = bitmap
+        adapter.notifyDataSetChanged()
+    }
+
     interface MenuFragmentListener {
         fun onMenuFragmentAddClicked()
         fun onMenuFragmentBasketClicked()
         fun onItemFoodAddToBasketClicked(food: Food)
         fun onItemFoodForInfoClicked(food: Food)
     }
-
-
-
 
 }

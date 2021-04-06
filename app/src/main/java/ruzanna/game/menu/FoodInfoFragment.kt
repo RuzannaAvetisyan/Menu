@@ -25,9 +25,10 @@ class FoodInfoFragment(val food: Food): Fragment() {
         photo.setImageResource(food.photo)
         rating.text = food.rating.toString()
         food_description.text = """
-            There are many fast foods and delivery services 
-            in the city, but "Tumanyan Shaurma" fast food 
-            chain offers you fully new opportunities (chances).
+            There are many fast foods and delivery 
+            services in the city, but "Tumanyan 
+            Shaurma" fast food chain offers you 
+            fully new opportunities(chances).
             Order right now: 011-81-88-88, 81-88
         """
     }

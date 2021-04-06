@@ -1,5 +1,6 @@
 package ruzanna.game.menu
 
+import android.graphics.Bitmap
 import android.os.Parcel
 import android.os.Parcelable
 
@@ -39,6 +40,8 @@ data class Food(
             return arrayOfNulls(size)
         }
     }
+    public var photo2: Bitmap? = null
+
 }
 
 fun getFoodList(): MutableList<Food>{

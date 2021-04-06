@@ -1,11 +1,13 @@
 package ruzanna.game.menu
 
+import android.content.ActivityNotFoundException
+import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
-import com.google.android.material.snackbar.Snackbar
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import android.view.Menu
-import android.view.MenuItem
 
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -19,7 +21,6 @@ class MainActivity : AppCompatActivity(), MenuFragment.MenuFragmentListener,
     lateinit var basketItemDeleteFragment: BasketItemDeleteFragment
     lateinit var basketFragment: BasketFragment
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         menuFragment.listener = this
@@ -53,6 +54,15 @@ class MainActivity : AppCompatActivity(), MenuFragment.MenuFragmentListener,
 
     override fun onCreateFoodFragmentAdd(food: Food) {
         createFoodFragment.dismiss()
+        val getCamera = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        try {
+            startActivityForResult(getCamera, 1)
+        } catch (e: ActivityNotFoundException) {
+            Toast.makeText(
+                applicationContext, "There is no camera on the device.",
+                Toast.LENGTH_LONG
+            ).show()
+        }
         menuFragment.updateListView(food)
     }
 
@@ -67,8 +77,22 @@ class MainActivity : AppCompatActivity(), MenuFragment.MenuFragmentListener,
         basketItemDeleteFragment.dismiss()
         if (b){
             basketItemsList.remove(foodInBasket)
+            basketList.remove(foodInBasket.food)
         }
         basketFragment.notifyDataChanged()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(data != null) {
+            val bitmap = data.extras?.get("data") as Bitmap
+            menuFragment.updateListViewPhoto(bitmap)
+        }else{
+            Toast.makeText(
+                applicationContext, "Bad request",
+                Toast.LENGTH_LONG
+            ).show()
+        }
     }
 }
 
